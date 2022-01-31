@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Alignment" xml:space="preserve">
+    <value>Alignment</value>
+    <comment>Import</comment>
+  </data>
+  <data name="AllPages" xml:space="preserve">
+    <value>All pages</value>
+    <comment>Import</comment>
+  </data>
+  <data name="AnUpdateIsAvailable" xml:space="preserve">
+    <value>An update is available!</value>
+    <comment>Import</comment>
+  </data>
+  <data name="AsIs" xml:space="preserve">
+    <value>as is</value>
+    <comment>Import</comment>
+  </data>
+  <data name="BlendMode" xml:space="preserve">
+    <value>Blend mode</value>
+    <comment>Import</comment>
+  </data>
+  <data name="BlendOnto" xml:space="preserve">
+    <value>Blend onto</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>&amp;Cancel</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="CanceledUponYourRequest" xml:space="preserve">
+    <value>Canceled upon your request.</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="ContentAlignmentBottomCenter" xml:space="preserve">
+    <value>Bottom Center</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentBottomLeft" xml:space="preserve">
+    <value>Bottom Left</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentBottomRight" xml:space="preserve">
+    <value>Bottom Right</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentMiddleCenter" xml:space="preserve">
+    <value>Middle Center</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentMiddleLeft" xml:space="preserve">
+    <value>Middle Left</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentMiddleRight" xml:space="preserve">
+    <value>Middle Right</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentTopCenter" xml:space="preserve">
+    <value>Top Center</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentTopLeft" xml:space="preserve">
+    <value>Top Left</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentTopRight" xml:space="preserve">
+    <value>Top Right</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom Range</value>
+    <comment>Import</comment>
+  </data>
+  <data name="CustomFieldError" xml:space="preserve">
+    <value>`{0}` field is empty or invalid.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="CustomPagesPlaceHolderText" xml:space="preserve">
+    <value>e.g. 1-5, 8, 11-13</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descending</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Dimensions" xml:space="preserve">
+    <value>Dimensions</value>
+    <comment>Import</comment>
+  </data>
+  <data name="EmbedLayerAndDocumentProperties" xml:space="preserve">
+    <value>Embed Layer and Document Properties</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="ExportModeCropped" xml:space="preserve">
+    <value>Cropped</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ExportModeCumulative" xml:space="preserve">
+    <value>Cumulative</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ExportModeFlattened" xml:space="preserve">
+    <value>Flattened</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ExportModeNormal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ForumLink" xml:space="preserve">
+    <value>Forum</value>
+    <comment>Import</comment>
+  </data>
+  <data name="GitHubLink" xml:space="preserve">
+    <value>GitHub</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Invisible" xml:space="preserve">
+    <value>Invisible (except first layer)</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeAdditive" xml:space="preserve">
+    <value>Additive</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeColorBurn" xml:space="preserve">
+    <value>Color Burn</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeColorDodge" xml:space="preserve">
+    <value>Color Dodge</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeDarken" xml:space="preserve">
+    <value>Darken</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeDifference" xml:space="preserve">
+    <value>Difference</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeGlow" xml:space="preserve">
+    <value>Glow</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeLighten" xml:space="preserve">
+    <value>Lighten</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeMultiply" xml:space="preserve">
+    <value>Multiply</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeNegation" xml:space="preserve">
+    <value>Negation</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeNormal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeOverlay" xml:space="preserve">
+    <value>Overlay</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeReflect" xml:space="preserve">
+    <value>Reflect</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeScreen" xml:space="preserve">
+    <value>Screen</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeXor" xml:space="preserve">
+    <value>Xor</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Layers" xml:space="preserve">
+    <value>Layers</value>
+    <comment>Import</comment>
+  </data>
+  <data name="MaintainAspectRatio" xml:space="preserve">
+    <value>Maintain aspect ratio</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+    <comment>Export</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>Import</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>&amp;OK</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Opacity</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PageCount" xml:space="preserve">
+    <value>Page count</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PageNumberFormat" xml:space="preserve">
+    <value>Page #{0}</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Pages" xml:space="preserve">
+    <value>Pages</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>Page size</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PDFStandard" xml:space="preserve">
+    <value>PDF standard</value>
+    <comment>Export</comment>
+  </data>
+  <data name="PdfStandardNone" xml:space="preserve">
+    <value>None</value>
+    <comment>Export</comment>
+  </data>
+  <data name="PickAColor" xml:space="preserve">
+    <value>Pick a color</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PleaseEnterThePassword" xml:space="preserve">
+    <value>Please enter the password.</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PluginVersion" xml:space="preserve">
+    <value>Plugin version: {0}</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="PreviewText" xml:space="preserve">
+    <value>● Preview generation is not supported by this plugin.
+● DO NOT use this plugin to edit random PDF files.
+● DO NOT overwrite the original PDF file or make sure you've a backup.
+● PDF/A-1 prohibits the use of transparency within a conforming document.</value>
+    <comment>Export</comment>
+  </data>
+  <data name="PreviewTextHeader" xml:space="preserve">
+    <value>!!! NOTES ABOUT PDF FILE TYPE PLUGIN !!!</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Px" xml:space="preserve">
+    <value>px</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Quality</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready!</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsGrayscale" xml:space="preserve">
+    <value>Grayscale</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsGrayscaleDesc" xml:space="preserve">
+    <value>Grayscale output.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsLcdText" xml:space="preserve">
+    <value>LCD Text</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsLcdTextDesc" xml:space="preserve">
+    <value>Set if using text rendering optimized for LCD display.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothImage" xml:space="preserve">
+    <value>No Smooth Image</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothImageDesc" xml:space="preserve">
+    <value>Set to disable anti-aliasing on images.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothPath" xml:space="preserve">
+    <value>No Smooth Path</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothPathDesc" xml:space="preserve">
+    <value>Set to disable anti-aliasing on paths.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothText" xml:space="preserve">
+    <value>No Smooth Text</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothTextDesc" xml:space="preserve">
+    <value>Set to disable anti-aliasing on text.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderOptions" xml:space="preserve">
+    <value>Render options</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>&amp;Reset</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RestoreLayerProperties" xml:space="preserve">
+    <value>Restore properties (if available)</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Running</value>
+    <comment>Import</comment>
+  </data>
+  <data name="SkipDuplicateLayers" xml:space="preserve">
+    <value>Skip duplicate layers</value>
+    <comment>Export</comment>
+  </data>
+  <data name="SkipInvisibleLayers" xml:space="preserve">
+    <value>Skip invisible layers</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Varies" xml:space="preserve">
+    <value>Varies</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>Import</comment>
+  </data>
+</root>

@@ -1,0 +1,6 @@
+[submodule "PdfPig"]
+	path = PdfPig
+	url = https://github.com/otuncelli/PdfPig
+[submodule "PDFiumSharp"]
+	path = PDFiumSharp
+	url = https://github.com/otuncelli/PDFiumSharp

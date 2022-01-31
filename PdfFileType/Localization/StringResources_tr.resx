@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Alignment" xml:space="preserve">
+    <value>Hizala</value>
+    <comment>Import</comment>
+  </data>
+  <data name="AllPages" xml:space="preserve">
+    <value>Tüm sayfalar</value>
+    <comment>Import</comment>
+  </data>
+  <data name="AnUpdateIsAvailable" xml:space="preserve">
+    <value>Bir güncelleme mevcut!</value>
+    <comment>Import</comment>
+  </data>
+  <data name="AsIs" xml:space="preserve">
+    <value>olduğu gibi</value>
+    <comment>Import</comment>
+  </data>
+  <data name="BlendMode" xml:space="preserve">
+    <value>Harmamlama modu</value>
+    <comment>Import</comment>
+  </data>
+  <data name="BlendOnto" xml:space="preserve">
+    <value>Üzerine harmanla</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İ&amp;ptal</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="CanceledUponYourRequest" xml:space="preserve">
+    <value>Talebiniz üzerine iptal edildi.</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="ContentAlignmentBottomCenter" xml:space="preserve">
+    <value>Alt Orta</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentBottomLeft" xml:space="preserve">
+    <value>Sol Alt</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentBottomRight" xml:space="preserve">
+    <value>Sağ Alt</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentMiddleCenter" xml:space="preserve">
+    <value>Orta</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentMiddleLeft" xml:space="preserve">
+    <value>Sol Orta</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentMiddleRight" xml:space="preserve">
+    <value>Sağ Orta</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentTopCenter" xml:space="preserve">
+    <value>Üst Orta</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentTopLeft" xml:space="preserve">
+    <value>Sol Üst</value>
+    <comment>Import</comment>
+  </data>
+  <data name="ContentAlignmentTopRight" xml:space="preserve">
+    <value>Sağ Üst</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Özel Aralık</value>
+    <comment>Import</comment>
+  </data>
+  <data name="CustomFieldError" xml:space="preserve">
+    <value>`{0}` alanı boş veya geçersiz.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="CustomPagesPlaceHolderText" xml:space="preserve">
+    <value>Ör. 1-5, 8, 11-13</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Azalan</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Dimensions" xml:space="preserve">
+    <value>Boyutlar</value>
+    <comment>Import</comment>
+  </data>
+  <data name="EmbedLayerAndDocumentProperties" xml:space="preserve">
+    <value>Döküman ve katman özelliklerini kaydet</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hata</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="ExportModeCropped" xml:space="preserve">
+    <value>Kesilmiş</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ExportModeCumulative" xml:space="preserve">
+    <value>Kümülatif</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ExportModeFlattened" xml:space="preserve">
+    <value>Düzleştirilmiş</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ExportModeNormal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Export</comment>
+  </data>
+  <data name="ForumLink" xml:space="preserve">
+    <value>Forum</value>
+    <comment>Import</comment>
+  </data>
+  <data name="GitHubLink" xml:space="preserve">
+    <value>GitHub</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Yükseklik</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Bilgi</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Invisible" xml:space="preserve">
+    <value>Görünmez (ilk katman hariç)</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeAdditive" xml:space="preserve">
+    <value>Ekle</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeColorBurn" xml:space="preserve">
+    <value>Renk Yak</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeColorDodge" xml:space="preserve">
+    <value>Renk Soldur</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeDarken" xml:space="preserve">
+    <value>Karart</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeDifference" xml:space="preserve">
+    <value>Fark</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeGlow" xml:space="preserve">
+    <value>Parlat</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeLighten" xml:space="preserve">
+    <value>Aydınlat</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeMultiply" xml:space="preserve">
+    <value>Çarp</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeNegation" xml:space="preserve">
+    <value>Tersle</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeNormal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeOverlay" xml:space="preserve">
+    <value>Bindir</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeReflect" xml:space="preserve">
+    <value>Yansıt</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeScreen" xml:space="preserve">
+    <value>Perdele</value>
+    <comment>Import</comment>
+  </data>
+  <data name="LayerBlendModeXor" xml:space="preserve">
+    <value>Dışla</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Layers" xml:space="preserve">
+    <value>Katmanlar</value>
+    <comment>Import</comment>
+  </data>
+  <data name="MaintainAspectRatio" xml:space="preserve">
+    <value>En-boy oranını koru</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mod</value>
+    <comment>Export</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Hayır</value>
+    <comment>Import</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>&amp;TAMAM</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Saydamlık</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PageCount" xml:space="preserve">
+    <value>Sayfa sayısı</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PageNumberFormat" xml:space="preserve">
+    <value>Sayfa #{0}</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Pages" xml:space="preserve">
+    <value>Sayfalar</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>Sayfa boyutu</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Şifre</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PDFStandard" xml:space="preserve">
+    <value>PDF standardı</value>
+    <comment>Export</comment>
+  </data>
+  <data name="PdfStandardNone" xml:space="preserve">
+    <value>Hiçbiri</value>
+    <comment>Export</comment>
+  </data>
+  <data name="PickAColor" xml:space="preserve">
+    <value>Bir renk seçin</value>
+    <comment>Import</comment>
+  </data>
+  <data name="PleaseEnterThePassword" xml:space="preserve">
+    <value>Lütfen şifreyi giriniz.</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PluginVersion" xml:space="preserve">
+    <value>Eklenti sürümü: {0}</value>
+    <comment>Generic</comment>
+  </data>
+  <data name="PreviewText" xml:space="preserve">
+    <value>● Önizleme oluşturma bu eklenti tarafından desteklenmemektedir.
+● Bu eklentiyi rastgele PDF dosyalarını düzenlemek için KULLANMAYINIZ.
+● PDF dosyasının üzerine yazmadan önce YEDEĞİNİ ALINIZ.
+● PDF/A-1 ile kaydedilen PDF dosyaları şeffaflık içeremez.</value>
+    <comment>Export</comment>
+  </data>
+  <data name="PreviewTextHeader" xml:space="preserve">
+    <value>!!! PDF DOSYA TÜRÜ EKLENTİSİ HAKKINDA NOTLAR !!!</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Px" xml:space="preserve">
+    <value>piksel</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Kalite</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Hazır!</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsGrayscale" xml:space="preserve">
+    <value>Gri tonları</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsGrayscaleDesc" xml:space="preserve">
+    <value>Çıkışı gri tonlarına çevirir.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsLcdText" xml:space="preserve">
+    <value>LCD Metin</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsLcdTextDesc" xml:space="preserve">
+    <value>Metin LCD ekranlar için optimize edilir.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothImage" xml:space="preserve">
+    <value>Görselleri Yumuşatma</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothImageDesc" xml:space="preserve">
+    <value>Görsellere uygulanan yumuşatmayı kapatır.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothPath" xml:space="preserve">
+    <value>Vektörleri Yumuşatma</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothPathDesc" xml:space="preserve">
+    <value>Vektörlere uygulanan yumuşatmayı kapatır.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothText" xml:space="preserve">
+    <value>Metinleri Yumuşatma</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderingFlagsNoSmoothTextDesc" xml:space="preserve">
+    <value>Metinlere uygulanan yumuşatmayı kapatır.</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RenderOptions" xml:space="preserve">
+    <value>Render seçenekleri</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>&amp;Sıfırla</value>
+    <comment>Import</comment>
+  </data>
+  <data name="RestoreLayerProperties" xml:space="preserve">
+    <value>Özellikleri geri yükle (eğer mevcutsa)</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Çalışıyor...</value>
+    <comment>Import</comment>
+  </data>
+  <data name="SkipDuplicateLayers" xml:space="preserve">
+    <value>Mükerrer katmanları atla</value>
+    <comment>Export</comment>
+  </data>
+  <data name="SkipInvisibleLayers" xml:space="preserve">
+    <value>Görünmez katmanları atla</value>
+    <comment>Export</comment>
+  </data>
+  <data name="Varies" xml:space="preserve">
+    <value>Değişken</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Genişlik</value>
+    <comment>Import</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Evet</value>
+    <comment>Import</comment>
+  </data>
+</root>

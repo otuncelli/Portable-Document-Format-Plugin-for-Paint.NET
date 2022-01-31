@@ -1,0 +1,130 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<AssemblyName>PdfFileType</AssemblyName>
+		<AssemblyTitle>PDF/AI File Type Plugin for Paint.NET</AssemblyTitle>
+		<Copyright>Copyright © 2022 Osman Tunçelli</Copyright>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <NetCoreTargetFramework>net6.0-windows</NetCoreTargetFramework>
+		<NoWarn>FodyPackageReference</NoWarn>
+		<OutputType>Library</OutputType>
+		<Product>PDF/AI File Type Plugin for Paint.NET</Product>
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <RootNamespace>PdfFileTypePlugin</RootNamespace>
+    <TargetFrameworks>$(NetCoreTargetFramework);net47</TargetFrameworks>
+		<UseWindowsForms>true</UseWindowsForms>
+		<Version>1.0.0.0</Version>
+    <DefineConstants>FILETYPE</DefineConstants>
+	</PropertyGroup>
+
+  <PropertyGroup Label="Custom">
+    <!-- NET 5.0 -->
+    <!--<PdnCore>E:\Downloads\paint.net64</PdnCore>-->
+    <PdnCore>C:\Program Files\paint.net</PdnCore>
+    <Pdn4216>D:\Backup\Programlar\paint.net_4216</Pdn4216>
+    <PluginDirCore>C:\Users\Osman\Documents\paint.net App Files\FileTypes\</PluginDirCore>
+    <PluginDir4216>$(Pdn4216)\FileTypes\$(RootNamespace)\</PluginDir4216>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(GenerateAssemblyInfo)' == 'true'">
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net47|AnyCPU'">
+		<NoWarn>$(NoWarn);1701;1702</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net47'">
+		<Reference Include="System.Net.Http" />
+		<Reference Include="PaintDotNet.Base">
+			<HintPath>$(Pdn4216)\PaintDotNet.Base.dll</HintPath>
+		</Reference>
+		<Reference Include="PaintDotNet.Core">
+			<HintPath>$(Pdn4216)\PaintDotNet.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="PaintDotNet.Data">
+			<HintPath>$(Pdn4216)\PaintDotNet.Data.dll</HintPath>
+		</Reference>
+		<Reference Include="PaintDotNet.Effects" Condition="$(DefineConstants.Contains('EFFECT'))">
+			<HintPath>$(Pdn4216)\PaintDotNet.Effects.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='$(NetCoreTargetFramework)'">
+		<Reference Include="PaintDotNet.Base">
+			<HintPath>$(PdnCore)\PaintDotNet.Base.dll</HintPath>
+		</Reference>
+		<Reference Include="PaintDotNet.Core">
+			<HintPath>$(PdnCore)\PaintDotNet.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="PaintDotNet.Data">
+			<HintPath>$(PdnCore)\PaintDotNet.Data.dll</HintPath>
+		</Reference>
+		<Reference Include="PaintDotNet.Effects" Condition="$(DefineConstants.Contains('EFFECT'))">
+			<HintPath>$(PdnCore)\PaintDotNet.Effects.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="ILMerge.Fody" Version="1.22.0" PrivateAssets="All" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PDFiumSharp\PDFiumSharp\PDFiumSharp.csproj" />
+    <ProjectReference Include="..\PdfPig\src\UglyToad.PdfPig\UglyToad.PdfPig.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Playground\**" />
+    <EmbeddedResource Remove="Playground\**" />
+    <None Remove="Playground\**" />
+		<EmbeddedResource Update="Localization\StringResources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+    <EmbeddedResource Update="Localization\StringResources_tr.resx">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <Compile Update="Localization\StringResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StringResources.resx</DependentUpon>
+    </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="runtimes\pdfium_ARM64.dll">
+			<Link>pdfium_ARM64.dll</Link>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+	  <None Include="runtimes\pdfium_x64.dll">
+			<Link>pdfium_x64.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="runtimes\pdfium_x86.dll">
+			<Link>pdfium_x86.dll</Link>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="PostBuild1" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)'=='net47'">
+		<Exec Command="if not exist &quot;$(PluginDir4216)&quot; mkdir &quot;$(PluginDir4216)&quot;" />
+		<Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginDir4216)&quot; /y" />
+		<Exec Command="copy &quot;$(ProjectDir)\runtimes\pdfium_x64.dll&quot; &quot;$(PluginDir4216)&quot; /y" />
+		<Exec Command="copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(PluginDir4216)&quot; /y" Condition="'$(ConfigurationName)' == 'Debug'" />
+	</Target>
+
+	<Target Name="PostBuild2" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)'=='$(NetCoreTargetFramework)'">
+		<Exec Command="if not exist &quot;$(PluginDirCore)&quot; mkdir &quot;$(PluginDirCore)&quot;" />
+		<Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginDirCore)&quot; /y" />
+		<Exec Command="copy &quot;$(ProjectDir)\runtimes\pdfium_x64.dll&quot; &quot;$(PluginDirCore)&quot; /y" />
+		<Exec Command="copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(PluginDirCore)&quot; /y" Condition="'$(ConfigurationName)' == 'Debug'" />
+	</Target>
+
+	<Target Name="OuterPreBuild" BeforeTargets="DispatchToInnerBuilds">
+		<Exec Command="powershell -NoProfile -ExecutionPolicy RemoteSigned -file &quot;Localization\InjectResourceManager.ps1&quot;" />
+	</Target>
+  
+</Project>
