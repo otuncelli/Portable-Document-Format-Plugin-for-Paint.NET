@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using PaintDotNet;
+using PaintDotNet.PropertySystem;
 using PaintDotNet.Rendering;
 
 namespace PdfFileTypePlugin.Export
@@ -52,12 +53,16 @@ namespace PdfFileTypePlugin.Export
             ScratchSurface = scratchSurface;
             progress = progressCallback;
 
-            Quality = token.GetInt32PropertyValue(PropertyNames.Quality);
-            SkipHiddenLayers = token.GetBooleanPropertyValue(PropertyNames.SkipInvisibleLayers);
-            SkipDuplicateLayers = token.GetBooleanPropertyValue(PropertyNames.SkipDuplicateLayers);
-            PdfStd = (PdfStandard)token.GetStaticListChoicePropertyValue(PropertyNames.PdfStandard);
-            Mode = (ExportMode)token.GetStaticListChoicePropertyValue(PropertyNames.ExportMode);
-            EmbedProperties = token.GetBooleanPropertyValue(PropertyNames.EmbedProperties) && (Mode == ExportMode.Cropped || Mode == ExportMode.Normal);
+            PropertyCollection props = token.Properties;
+
+#pragma warning disable format // @formatter:off
+            Quality                 = props.GetPropertyValue<int>(PropertyNames.Quality);
+            SkipHiddenLayers        = props.GetPropertyValue<bool>(PropertyNames.SkipInvisibleLayers);
+            SkipDuplicateLayers     = props.GetPropertyValue<bool>(PropertyNames.SkipDuplicateLayers);
+            PdfStd                  = props.GetPropertyValue<PdfStandard>(PropertyNames.PdfStandard);
+            Mode                    = props.GetPropertyValue<ExportMode>(PropertyNames.ExportMode);
+            EmbedProperties         = props.GetPropertyValue<bool>(PropertyNames.EmbedProperties) && (Mode == ExportMode.Cropped || Mode == ExportMode.Normal);
+#pragma warning restore format // @formatter:on
 
             if (EmbedProperties)
             {
@@ -164,7 +169,8 @@ namespace PdfFileTypePlugin.Export
 
         public static PdfExporter Create(Document input, Stream output, PropertyBasedSaveConfigToken token, Surface scratchSurface, ProgressEventHandler progressCallback)
         {
-            PdfStandard std = (PdfStandard)token.GetStaticListChoicePropertyValue(PropertyNames.PdfStandard);
+            PropertyCollection props = token.Properties;
+            PdfStandard std = props.GetPropertyValue<PdfStandard>(PropertyNames.PdfStandard);
             return std == PdfStandard.None
 #pragma warning disable IDE0004
                 ? (PdfExporter)new PdfiumExporter(input, output, token, scratchSurface, progressCallback)

@@ -9,47 +9,98 @@ using System.Linq;
 
 namespace PaintDotNet.PropertySystem
 {
-    internal sealed class MyPropertyCollection : KeyedCollection<object, Property>
+    internal sealed class MyPropertyCollection : IReadOnlyList<Property>, IEnumerable<Property>, IEnumerable, ICloneable
     {
+        #region Internal Collection
+
+        private sealed class InternalPropertyCollection : KeyedCollection<object, Property>
+        {
+            public InternalPropertyCollection() : base(EqualityComparer<object>.Default)
+            {
+            }
+
+            protected override object GetKeyForItem(Property item) => item.GetOriginalNameValue();
+        }
+
+        #endregion
+
+        #region Fields
+
+        private readonly InternalPropertyCollection props;
+
+        private readonly List<PropertyCollectionRule> rules;
+
+        #endregion
+
+        #region Properties
+
+        public IReadOnlyList<PropertyCollectionRule> Rules => rules;
+
+        public IReadOnlyList<Property> Properties => props;
+
+        public IReadOnlyList<string> PropertyNames => props.Select(p => p.Name).ToList();
+
+        public Property this[object propertyName] => props[propertyName];
+
+        public int Count => props.Count;
+
+        Property IReadOnlyList<Property>.this[int index] => GetPropertyAt(index);
+
+        #endregion
+
         #region Constructors
 
-        public MyPropertyCollection(IEnumerable<Property> props) : base(PropertyNameComparer.Instance)
+        public MyPropertyCollection(IEnumerable<Property> props, IEnumerable<PropertyCollectionRule> rules)
         {
+            this.props = new InternalPropertyCollection();
+            this.rules = new List<PropertyCollectionRule>();
+
+            if (props == null) { return; }
+
             foreach (Property prop in props)
             {
-                Add(prop);
+                this.props.Add(prop.Clone());
+            }
+
+            if (rules != null)
+            {
+                foreach (PropertyCollectionRule rule in rules)
+                {
+                    this.rules.Add(rule.Clone());
+                }
             }
         }
 
-        public MyPropertyCollection(IEnumerable<Property> props, IEnumerable<PropertyCollectionRule> rules) : this(props)
+        public MyPropertyCollection(IEnumerable<Property> props)
+            : this(props, null)
         {
-            this.rules.AddRange(rules);
         }
 
-        public MyPropertyCollection() : base(PropertyNameComparer.Instance)
+        public MyPropertyCollection()
+            : this(null, null)
         {
         }
 
         #endregion
 
-        private readonly List<PropertyCollectionRule> rules = new List<PropertyCollectionRule>();
+        #region Add Property Method
 
-        public IReadOnlyList<PropertyCollectionRule> Rules => rules;
-
-        protected override object GetKeyForItem(Property item) => item.GetOriginalNameValue();
-
-        public MyPropertyCollection Add(Property property, int index)
+        private MyPropertyCollection _Add(Property property, int index)
         {
-            if (index < 0 || index >= Count)
+            if (index < 0 || index >= props.Count)
             {
-                Add(property);
+                props.Add(property);
             }
             else
             {
-                Insert(index, property);
+                props.Insert(index, property);
             }
             return this;
         }
+
+        public MyPropertyCollection Add(Property property, int index) => _Add(property.Clone(), index);
+
+        #endregion
 
         #region Int32
 
@@ -66,31 +117,31 @@ namespace PaintDotNet.PropertySystem
         /// <see cref="PropertyControlType.Slider" />
         /// </remarks>
         public MyPropertyCollection AddInt32Property(object name, int index = -1)
-            => Add(new Int32Property(name), index);
+            => _Add(new Int32Property(name), index);
 
-        /// <inheritdoc cref="AddInt32Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddInt32Property(object, int)" />
         public MyPropertyCollection Add(object name, int defaultValue, int minValue, int maxValue, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new Int32Property(name, defaultValue, minValue, maxValue, readOnly, vvfResult), index);
+            => _Add(new Int32Property(name, defaultValue, minValue, maxValue, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="AddInt32Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddInt32Property(object, int)" />
         public MyPropertyCollection Add(object name, int defaultValue, int minValue, int maxValue, bool readOnly, int index = -1)
-            => Add(new Int32Property(name, defaultValue, minValue, maxValue, readOnly), index);
+            => _Add(new Int32Property(name, defaultValue, minValue, maxValue, readOnly), index);
 
-        /// <inheritdoc cref="AddInt32Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddInt32Property(object, int)" />
         public MyPropertyCollection Add(object name, int defaultValue, int minValue, int maxValue, int index = -1)
-            => Add(new Int32Property(name, defaultValue, minValue, maxValue), index);
+            => _Add(new Int32Property(name, defaultValue, minValue, maxValue), index);
 
-        /// <inheritdoc cref="AddInt32Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddInt32Property(object, int)" />
         public MyPropertyCollection Add(object name, int defaultValue, int index = -1)
-            => Add(new Int32Property(name, defaultValue), index);
+            => _Add(new Int32Property(name, defaultValue), index);
 
-        /// <inheritdoc cref="AddInt32Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddInt32Property(object, int)" />
         public MyPropertyCollection Add(object name, ColorBgra defaultValue, bool readOnly, int index = -1)
-            => Add(new Int32Property(name, ColorBgra.ToOpaqueInt32(defaultValue), 0, 0xffffff, readOnly), index);
+            => _Add(new Int32Property(name, ColorBgra.ToOpaqueInt32(defaultValue), 0, 0xffffff, readOnly), index);
 
-        /// <inheritdoc cref="AddInt32Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddInt32Property(object, int)" />
         public MyPropertyCollection Add(object name, ColorBgra defaultValue, int index = -1)
-            => Add(new Int32Property(name, ColorBgra.ToOpaqueInt32(defaultValue), 0, 0xffffff), index);
+            => _Add(new Int32Property(name, ColorBgra.ToOpaqueInt32(defaultValue), 0, 0xffffff), index);
 
         #endregion
 
@@ -112,23 +163,23 @@ namespace PaintDotNet.PropertySystem
         /// <strong>Default Maximum</strong>: 32767
         /// </remarks>
         public MyPropertyCollection AddDoubleProperty(object name, int index = -1)
-            => Add(new DoubleProperty(name), index);
+            => _Add(new DoubleProperty(name), index);
 
-        /// <inheritdoc cref="AddDoubleProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleProperty(object, int)" />
         public MyPropertyCollection Add(object name, double defaultValue, double minValue, double maxValue, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new DoubleProperty(name, defaultValue, minValue, maxValue, readOnly, vvfResult), index);
+            => _Add(new DoubleProperty(name, defaultValue, minValue, maxValue, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="AddDoubleProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleProperty(object, int)" />
         public MyPropertyCollection Add(object name, double defaultValue, double minValue, double maxValue, bool readOnly, int index = -1)
-            => Add(new DoubleProperty(name, defaultValue, minValue, maxValue, readOnly), index);
+            => _Add(new DoubleProperty(name, defaultValue, minValue, maxValue, readOnly), index);
 
-        /// <inheritdoc cref="AddDoubleProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleProperty(object, int)" />
         public MyPropertyCollection Add(object name, double defaultValue, double minValue, double maxValue, int index = -1)
-            => Add(new DoubleProperty(name, defaultValue, minValue, maxValue), index);
+            => _Add(new DoubleProperty(name, defaultValue, minValue, maxValue), index);
 
-        /// <inheritdoc cref="AddDoubleProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleProperty(object, int)" />
         public MyPropertyCollection Add(object name, double defaultValue, int index = -1)
-            => Add(new DoubleProperty(name, defaultValue), index);
+            => _Add(new DoubleProperty(name, defaultValue), index);
 
         #endregion
 
@@ -142,19 +193,19 @@ namespace PaintDotNet.PropertySystem
         /// <see cref="PropertyControlType.CheckBox" />
         /// </remarks>
         public MyPropertyCollection AddBooleanProperty(object name, int index = -1)
-            => Add(new BooleanProperty(name), index);
+            => _Add(new BooleanProperty(name), index);
 
-        /// <inheritdoc cref="AddBooleanProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddBooleanProperty(object, int)" />
         public MyPropertyCollection Add(object name, bool defaultValue, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new BooleanProperty(name, defaultValue, readOnly, vvfResult), index);
+            => _Add(new BooleanProperty(name, defaultValue, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="AddBooleanProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddBooleanProperty(object, int)" />
         public MyPropertyCollection Add(object name, bool defaultValue, bool readOnly, int index = -1)
-            => Add(new BooleanProperty(name, defaultValue, readOnly), index);
+            => _Add(new BooleanProperty(name, defaultValue, readOnly), index);
 
-        /// <inheritdoc cref="AddBooleanProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddBooleanProperty(object, int)" />
         public MyPropertyCollection Add(object name, bool defaultValue, int index = -1)
-            => Add(new BooleanProperty(name, defaultValue), index);
+            => _Add(new BooleanProperty(name, defaultValue), index);
 
         #endregion
 
@@ -172,23 +223,23 @@ namespace PaintDotNet.PropertySystem
         /// <see cref="PropertyControlType.PanAndSlider" />
         /// </remarks>
         public MyPropertyCollection AddDoubleVectorProperty(object name, int index = -1)
-            => Add(new DoubleVectorProperty(name), index);
+            => _Add(new DoubleVectorProperty(name), index);
 
-        /// <inheritdoc cref="AddDoubleVectorProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVectorProperty(object, int)" />
         public MyPropertyCollection Add(object name, Pair<double, double> defaultValues, Pair<double, double> minValues, Pair<double, double> maxValues, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new DoubleVectorProperty(name, defaultValues, minValues, maxValues, readOnly, vvfResult), index);
+            => _Add(new DoubleVectorProperty(name, defaultValues, minValues, maxValues, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="AddDoubleVectorProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVectorProperty(object, int)" />
         public MyPropertyCollection Add(object name, Pair<double, double> defaultValues, Pair<double, double> minValues, Pair<double, double> maxValues, bool readOnly, int index = -1)
-            => Add(new DoubleVectorProperty(name, defaultValues, minValues, maxValues, readOnly), index);
+            => _Add(new DoubleVectorProperty(name, defaultValues, minValues, maxValues, readOnly), index);
 
-        /// <inheritdoc cref="AddDoubleVectorProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVectorProperty(object, int)" />
         public MyPropertyCollection Add(object name, Pair<double, double> defaultValues, Pair<double, double> minValues, Pair<double, double> maxValues, int index = -1)
-            => Add(new DoubleVectorProperty(name, defaultValues, minValues, maxValues), index);
+            => _Add(new DoubleVectorProperty(name, defaultValues, minValues, maxValues), index);
 
-        /// <inheritdoc cref="AddDoubleVectorProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVectorProperty(object, int)" />
         public MyPropertyCollection Add(object name, Pair<double, double> defaultValues, int index = -1)
-            => Add(new DoubleVectorProperty(name, defaultValues), index);
+            => _Add(new DoubleVectorProperty(name, defaultValues), index);
 
         #endregion
 
@@ -206,23 +257,23 @@ namespace PaintDotNet.PropertySystem
         /// <see cref="PropertyControlType.Slider" />
         /// </remarks>
         public MyPropertyCollection AddDoubleVector3Property(object name, int index = -1)
-            => Add(new DoubleVector3Property(name), index);
+            => _Add(new DoubleVector3Property(name), index);
 
-        /// <inheritdoc cref="AddDoubleVector3Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVector3Property(object, int)" />
         public MyPropertyCollection Add(object name, Tuple<double, double, double> defaultValues, Tuple<double, double, double> minValues, Tuple<double, double, double> maxValues, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new DoubleVector3Property(name, defaultValues, minValues, maxValues, readOnly, vvfResult), index);
+            => _Add(new DoubleVector3Property(name, defaultValues, minValues, maxValues, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="AddDoubleVector3Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVector3Property(object, int)" />
         public MyPropertyCollection Add(object name, Tuple<double, double, double> defaultValues, Tuple<double, double, double> minValues, Tuple<double, double, double> maxValues, bool readOnly, int index = -1)
-            => Add(new DoubleVector3Property(name, defaultValues, minValues, maxValues, readOnly), index);
+            => _Add(new DoubleVector3Property(name, defaultValues, minValues, maxValues, readOnly), index);
 
-        /// <inheritdoc cref="AddDoubleVector3Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVector3Property(object, int)" />
         public MyPropertyCollection Add(object name, Tuple<double, double, double> defaultValues, Tuple<double, double, double> minValues, Tuple<double, double, double> maxValues, int index = -1)
-            => Add(new DoubleVector3Property(name, defaultValues, minValues, maxValues), index);
+            => _Add(new DoubleVector3Property(name, defaultValues, minValues, maxValues), index);
 
-        /// <inheritdoc cref="AddDoubleVector3Property(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddDoubleVector3Property(object, int)" />
         public MyPropertyCollection Add(object name, Tuple<double, double, double> defaultValues, int index = -1)
-            => Add(new DoubleVector3Property(name, defaultValues), index);
+            => _Add(new DoubleVector3Property(name, defaultValues), index);
 
         #endregion
 
@@ -232,15 +283,15 @@ namespace PaintDotNet.PropertySystem
         /// Adds <see cref="ImageProperty" />
         /// </summary>
         public MyPropertyCollection AddImageProperty(object name, int index = -1)
-            => Add(new ImageProperty(name), index);
+            => _Add(new ImageProperty(name), index);
 
-        /// <inheritdoc cref="AddImageProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddImageProperty(object, int)" />
         public MyPropertyCollection Add(object name, ImageResource image, bool readOnly, int index = -1)
-            => Add(new ImageProperty(name, image, readOnly), index);
+            => _Add(new ImageProperty(name, image, readOnly), index);
 
-        /// <inheritdoc cref="AddImageProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddImageProperty(object, int)" />
         public MyPropertyCollection Add(object name, ImageResource image, int index = -1)
-            => Add(new ImageProperty(name, image), index);
+            => _Add(new ImageProperty(name, image), index);
 
         #endregion
 
@@ -258,23 +309,23 @@ namespace PaintDotNet.PropertySystem
         /// <see cref="PropertyControlType.TextBox" />
         /// </remarks>
         public MyPropertyCollection AddStringProperty(object name, int index = -1)
-            => Add(new StringProperty(name), index);
+            => _Add(new StringProperty(name), index);
 
-        /// <inheritdoc cref="AddStringProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddStringProperty(object, int)" />
         public MyPropertyCollection Add(object name, string defaultValue, int maxLength, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new StringProperty(name, defaultValue, maxLength, readOnly, vvfResult), index);
+            => _Add(new StringProperty(name, defaultValue, maxLength, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="AddStringProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddStringProperty(object, int)" />
         public MyPropertyCollection Add(object name, string defaultValue, int maxLength, bool readOnly, int index = -1)
-            => Add(new StringProperty(name, defaultValue, maxLength, readOnly), index);
+            => _Add(new StringProperty(name, defaultValue, maxLength, readOnly), index);
 
-        /// <inheritdoc cref="AddStringProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddStringProperty(object, int)" />
         public MyPropertyCollection Add(object name, string defaultValue, int maxLength, int index = -1)
-            => Add(new StringProperty(name, defaultValue, maxLength), index);
+            => _Add(new StringProperty(name, defaultValue, maxLength), index);
 
-        /// <inheritdoc cref="AddStringProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddStringProperty(object, int)" />
         public MyPropertyCollection Add(object name, string defaultValue, int index = -1)
-            => Add(new StringProperty(name, defaultValue), index);
+            => _Add(new StringProperty(name, defaultValue), index);
 
         #endregion
 
@@ -288,19 +339,19 @@ namespace PaintDotNet.PropertySystem
         /// <see cref="PropertyControlType.LinkLabel" />
         /// </remarks>
         public MyPropertyCollection AddUriProperty(object name, int index = -1)
-            => Add(new UriProperty(name), index);
+            => _Add(new UriProperty(name), index);
 
-        /// <inheritdoc cref="AddUriProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddUriProperty(object, int)" />
         public MyPropertyCollection Add(object name, Uri defaultValue, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new UriProperty(name, defaultValue, readOnly, vvfResult), index);
+            => _Add(new UriProperty(name, defaultValue, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="AddUriProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddUriProperty(object, int)" />
         public MyPropertyCollection Add(object name, Uri defaultValue, bool readOnly, int index = -1)
-            => Add(new UriProperty(name, defaultValue, readOnly), index);
+            => _Add(new UriProperty(name, defaultValue, readOnly), index);
 
-        /// <inheritdoc cref="AddUriProperty(PropertyCollection, object)" />
+        /// <inheritdoc cref="AddUriProperty(object, int)" />
         public MyPropertyCollection Add(object name, Uri defaultValue, int index = -1)
-            => Add(new UriProperty(name, defaultValue), index);
+            => _Add(new UriProperty(name, defaultValue), index);
 
         #endregion
 
@@ -318,35 +369,60 @@ namespace PaintDotNet.PropertySystem
         /// <see cref="PropertyControlType.DropDown" />
         /// </remarks>
         public MyPropertyCollection Add(object name, IEnumerable valueChoices, int index = -1)
-            => Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray()), index);
+            => _Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray()), index);
 
-        /// <inheritdoc cref="Add(PropertyCollection, object, IEnumerable)" />
+        /// <inheritdoc cref="Add(object, IEnumerable, int)" />
         public MyPropertyCollection Add(object name, IEnumerable valueChoices, int defaultChoiceIndex, bool readOnly, ValueValidationFailureResult vvfResult, int index = -1)
-            => Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray(), defaultChoiceIndex, readOnly, vvfResult), index);
+            => _Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray(), defaultChoiceIndex, readOnly, vvfResult), index);
 
-        /// <inheritdoc cref="Add(PropertyCollection, object, IEnumerable)" />
+        /// <inheritdoc cref="Add(object, IEnumerable, int)" />
         public MyPropertyCollection Add(object name, IEnumerable valueChoices, int defaultChoiceIndex, bool readOnly, int index = -1)
-            => Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray(), defaultChoiceIndex, readOnly), index);
+            => _Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray(), defaultChoiceIndex, readOnly), index);
 
-        /// <inheritdoc cref="Add(PropertyCollection, object, IEnumerable)" />
+        /// <inheritdoc cref="Add(object, IEnumerable, int)" />
         public MyPropertyCollection Add(object name, IEnumerable valueChoices, int defaultChoiceIndex, int index = -1)
-            => Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray(), defaultChoiceIndex), index);
+            => _Add(new StaticListChoiceProperty(name, valueChoices.Cast<object>().ToArray(), defaultChoiceIndex), index);
 
-        /// <inheritdoc cref="Add(PropertyCollection, object, IEnumerable)" />
-        public MyPropertyCollection Add<TEnum>(object name, TEnum defaultValue, bool readOnly, int index = -1) where TEnum : Enum
-            => Add(StaticListChoiceProperty.CreateForEnum(name, defaultValue, readOnly), index);
+        /// <inheritdoc cref="Add(object, IEnumerable, int)" />
+        public MyPropertyCollection Add<TEnum>(object name, TEnum defaultValue, IComparer comparer = null, int index = -1) where TEnum : Enum
+            => Add(typeof(TEnum), name, defaultValue, readOnly: false, comparer: comparer, index: index);
 
-        /// <inheritdoc cref="Add(PropertyCollection, object, IEnumerable)" />
-        public MyPropertyCollection Add<TEnum>(object name, TEnum defaultValue, int index = -1) where TEnum : Enum
-            => Add(StaticListChoiceProperty.CreateForEnum(name, defaultValue), index);
+        /// <inheritdoc cref="Add(object, IEnumerable, int)" />
+        public MyPropertyCollection Add<TEnum>(object name, TEnum defaultValue, bool readOnly, IComparer comparer = null, int index = -1) where TEnum : Enum
+            => Add(typeof(TEnum), name, defaultValue, readOnly, comparer: comparer, index: index);
 
-        /// <inheritdoc cref="Add(PropertyCollection, object, IEnumerable)" />
-        public MyPropertyCollection Add(Type enumType, object name, object defaultValue, int index = -1)
-            => Add(StaticListChoiceProperty.CreateForEnum(enumType, name, defaultValue), index);
+        /// <inheritdoc cref="Add(object, IEnumerable, int)" />
+        public MyPropertyCollection Add(Type enumType, object name, object defaultValue, IComparer comparer = null, int index = -1)
+            => Add(enumType, name, defaultValue, readOnly: false, comparer: comparer, index: index);
 
-        /// <inheritdoc cref="Add(PropertyCollection, object, IEnumerable)" />
-        public MyPropertyCollection Add<TEnum>(Type enumType, object name, TEnum defaultValue, bool readOnly, int index = -1) where TEnum : Enum
-            => Add(StaticListChoiceProperty.CreateForEnum(enumType, name, defaultValue, readOnly), index);
+        /// <inheritdoc cref="Add(object, IEnumerable, int)" />
+        public MyPropertyCollection Add(Type enumType, object name, object defaultValue, bool readOnly, IComparer comparer = null, int index = -1)
+        {
+            if (enumType.GetCustomAttributes(typeof(FlagsAttribute), inherit: true).Length != 0)
+            {
+                throw new ArgumentException($"Enums with '{nameof(FlagsAttribute)}' are not supported");
+            }
+
+            if (!Enum.IsDefined(enumType, defaultValue))
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(defaultValue)} '{defaultValue}' is not a valid enum value for '{enumType.FullName}'");
+            }
+
+            Array values = Enum.GetValues(enumType);
+
+            if (comparer != null)
+            {
+                Array.Sort(values, comparer);
+            }
+
+            int defaultValueIndex = Array.IndexOf(values, defaultValue);
+
+            object[] array = new object[values.Length];
+            values.CopyTo(array, 0);
+
+            Property property = new StaticListChoiceProperty(name, array, defaultValueIndex, readOnly);
+            return _Add(property, index);
+        }
 
         #endregion
 
@@ -354,7 +430,7 @@ namespace PaintDotNet.PropertySystem
 
         public MyPropertyCollection WithReadOnlyRule(PropertyCollectionRule rule)
         {
-            rules.Add(rule);
+            rules.Add(rule.Clone());
             return this;
         }
 
@@ -390,7 +466,7 @@ namespace PaintDotNet.PropertySystem
             {
                 throw new ArgumentNullException(nameof(valueForReadOnly));
             }
-            Property sourceProperty = this[sourcePropertyName];
+            Property sourceProperty = props[sourcePropertyName];
             Type genericType = typeof(ReadOnlyBoundToValueRule<,>).MakeGenericType(sourceProperty.ValueType, sourceProperty.GetType());
             PropertyCollectionRule rule = (PropertyCollectionRule)Activator.CreateInstance(genericType, targetPropertyName, sourcePropertyName, valueForReadOnly, inverse);
             return WithReadOnlyRule(rule);
@@ -402,7 +478,7 @@ namespace PaintDotNet.PropertySystem
             {
                 throw new ArgumentNullException(nameof(valuesForReadOnly));
             }
-            Property sourceProperty = this[sourcePropertyName];
+            Property sourceProperty = props[sourcePropertyName];
             Type genericType = typeof(ReadOnlyBoundToValueRule<,>).MakeGenericType(sourceProperty.ValueType, sourceProperty.GetType());
             PropertyCollectionRule rule = (PropertyCollectionRule)Activator.CreateInstance(genericType, targetPropertyName, sourcePropertyName, valuesForReadOnly.Cast<object>().ToArray(), inverse);
             return WithReadOnlyRule(rule);
@@ -470,32 +546,23 @@ namespace PaintDotNet.PropertySystem
 
         #endregion
 
-        #region Implicit operators
+        #region Other Methods
 
-        public static implicit operator PropertyCollection(MyPropertyCollection list)
-            => new PropertyCollection(list, list.Rules);
+        public Property GetPropertyAt(int index) => ((Collection<Property>)props)[index];
 
-        public static implicit operator MyPropertyCollection(PropertyCollection collection)
-            => new MyPropertyCollection(collection, collection.Rules);
+        public object GetPropertyValue(object propertyName) => this[propertyName].Value;
 
-        #endregion
+        public T GetPropertyValue<T>(object propertyName) => (T)GetPropertyValue(propertyName);
 
-        #region ToDictionary
+        public Dictionary<object, object> ToDictionary() => props.ToDictionary(a => a.GetOriginalNameValue(), a => a.Value, EqualityComparer<object>.Default);
 
-        public Dictionary<object, object> ToDictionary() => Dictionary.ToDictionary(a => a, a => a.Value.Value, PropertyNameComparer.Instance);
-
-        #endregion
-
-        #region Update
-
-        public void CopyCompatibleValuesFrom(MyPropertyCollection srcProps)
-            => CopyCompatibleValuesFrom(srcProps, ignoreReadOnlyFlags: false);
+        public void CopyCompatibleValuesFrom(MyPropertyCollection srcProps) => CopyCompatibleValuesFrom(srcProps, ignoreReadOnlyFlags: false);
 
         public void CopyCompatibleValuesFrom(MyPropertyCollection srcProps, bool ignoreReadOnlyFlags)
         {
             foreach (Property srcProp in srcProps)
             {
-                Property property = this[srcProp.Name];
+                Property property = props[srcProp.Name];
                 if (property == null || !(property.ValueType == srcProp.ValueType))
                 {
                     continue;
@@ -514,25 +581,27 @@ namespace PaintDotNet.PropertySystem
             }
         }
 
-        public bool IsValueChanged(object propertyName, object newValue)
-            => !Dictionary[propertyName].Equals(newValue);
+        #endregion
+
+        #region Implicit operators
+
+        public static implicit operator PropertyCollection(MyPropertyCollection list) => new PropertyCollection(list, list.Rules);
+
+        public static implicit operator MyPropertyCollection(PropertyCollection collection) => new MyPropertyCollection(collection, collection.Rules);
 
         #endregion
 
-        #region PropertyNameComparer
+        #region ICloneable
 
-        private sealed class PropertyNameComparer : EqualityComparer<object>
-        {
-            public static readonly PropertyNameComparer Instance = new PropertyNameComparer();
+        public object Clone() => new MyPropertyCollection(this, Rules);
 
-            private readonly StringComparer InnerComparer = StringComparer.Ordinal;
+        #endregion
 
-            private string ObjectToString(object obj) => obj?.ToString();
+        #region IEnumerable
 
-            public override bool Equals(object x, object y) => InnerComparer.Equals(ObjectToString(x), ObjectToString(y));
+        public IEnumerator<Property> GetEnumerator() => props.GetEnumerator();
 
-            public override int GetHashCode(object obj) => InnerComparer.GetHashCode(ObjectToString(obj));
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
     }

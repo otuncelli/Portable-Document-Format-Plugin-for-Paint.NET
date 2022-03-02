@@ -6,7 +6,7 @@
 		<AssemblyTitle>PDF/AI File Type Plugin for Paint.NET</AssemblyTitle>
 		<Copyright>Copyright © 2022 Osman Tunçelli</Copyright>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <NetCoreTargetFramework>net6.0-windows</NetCoreTargetFramework>
+    <NetCoreTargetFramework>net5.0-windows</NetCoreTargetFramework>
 		<NoWarn>FodyPackageReference</NoWarn>
 		<OutputType>Library</OutputType>
 		<Product>PDF/AI File Type Plugin for Paint.NET</Product>
@@ -19,9 +19,7 @@
 	</PropertyGroup>
 
   <PropertyGroup Label="Custom">
-    <!-- NET 5.0 -->
-    <!--<PdnCore>E:\Downloads\paint.net64</PdnCore>-->
-    <PdnCore>C:\Program Files\paint.net</PdnCore>
+    <PdnCore>D:\Backup\Programlar\paint.net_4300</PdnCore>
     <Pdn4216>D:\Backup\Programlar\paint.net_4216</Pdn4216>
     <PluginDirCore>C:\Users\Osman\Documents\paint.net App Files\FileTypes\</PluginDirCore>
     <PluginDir4216>$(Pdn4216)\FileTypes\$(RootNamespace)\</PluginDir4216>
