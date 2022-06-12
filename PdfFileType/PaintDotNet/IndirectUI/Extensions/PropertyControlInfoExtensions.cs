@@ -1,12 +1,14 @@
 ﻿// Copyright 2022 Osman Tunçelli. All rights reserved.
 // Use of this source code is governed by GNU General Public License (GPL-2.0) that can be found in the COPYING file.
 
-using System;
 using PaintDotNet.PropertySystem;
+using System;
+using System.Drawing;
+using System.IO;
 
-namespace PaintDotNet.IndirectUI
+namespace PaintDotNet.IndirectUI.Extensions
 {
-    internal static class PropertyControlInfoExtensions
+    public static class PropertyControlInfoExtensions
     {
         private static PropertyControlInfo SetPropertyControlValue(this PropertyControlInfo pci, ControlInfoPropertyNames controlPropertyName, object controlPropertyValue)
         {
@@ -20,7 +22,7 @@ namespace PaintDotNet.IndirectUI
         /// <strong>Supported Controls</strong>:
         /// <see cref="PropertyControlType.FileChooser" />
         /// </remarks>
-        public static PropertyControlInfo AllowAllFiles(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo AllowAllFiles(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.AllowAllFiles, value);
 
         /// <remarks>
@@ -81,14 +83,14 @@ namespace PaintDotNet.IndirectUI
         /// <strong>Supported Controls</strong>:
         /// <see cref="PropertyControlType.TextBox" />
         /// </remarks>
-        public static PropertyControlInfo Multiline(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo Multiline(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.Multiline, value);
 
         /// <remarks>
         /// <strong>Supported Controls</strong>:
         /// <see cref="PropertyControlType.Slider" /> using <see cref="Int32Property"/> or <see cref="DoubleProperty"/>
         /// </remarks>
-        public static PropertyControlInfo RangeWraps(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo RangeWraps(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.RangeWraps, value);
 
         /// <remarks>
@@ -99,7 +101,7 @@ namespace PaintDotNet.IndirectUI
         /// <see cref="PropertyControlType.RollBallAndSliders" />,
         /// <see cref="PropertyControlType.ColorWheel" /> 
         /// </remarks>
-        public static PropertyControlInfo ShowResetButton(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo ShowResetButton(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.ShowResetButton, value);
 
         /// <remarks>
@@ -139,7 +141,7 @@ namespace PaintDotNet.IndirectUI
         /// <strong>Supported Controls</strong>:
         /// <see cref="PropertyControlType.Slider" /> using <see cref="Int32Property"/>
         /// </remarks>
-        public static PropertyControlInfo SliderShowTickMarks(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo SliderShowTickMarks(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.SliderShowTickMarks, value);
 
         /// <remarks>
@@ -148,7 +150,7 @@ namespace PaintDotNet.IndirectUI
         /// <see cref="PropertyControlType.PanAndSlider" />,
         /// <see cref="PropertyControlType.RollBallAndSliders" />
         /// </remarks>
-        public static PropertyControlInfo SliderShowTickMarksX(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo SliderShowTickMarksX(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.SliderShowTickMarksX, value);
 
         /// <remarks>
@@ -157,7 +159,7 @@ namespace PaintDotNet.IndirectUI
         /// <see cref="PropertyControlType.PanAndSlider" />,
         /// <see cref="PropertyControlType.RollBallAndSliders" />
         /// </remarks>
-        public static PropertyControlInfo SliderShowTickMarksY(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo SliderShowTickMarksY(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.SliderShowTickMarksY, value);
 
         /// <remarks>
@@ -165,7 +167,7 @@ namespace PaintDotNet.IndirectUI
         /// <see cref="PropertyControlType.Slider" /> using <see cref="DoubleVector3Property"/>,
         /// <see cref="PropertyControlType.RollBallAndSliders" />
         /// </remarks>
-        public static PropertyControlInfo SliderShowTickMarksZ(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo SliderShowTickMarksZ(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.SliderShowTickMarksZ, value);
 
         /// <remarks>
@@ -209,6 +211,26 @@ namespace PaintDotNet.IndirectUI
 
         /// <remarks>
         /// <strong>Supported Controls</strong>:
+        /// <see cref="DoubleVectorProperty"/>,
+        /// </remarks>
+        public static PropertyControlInfo StaticImageUnderlay(this PropertyControlInfo pci, byte[] bytes)
+        {
+            using (var ms = new MemoryStream(bytes))
+            {
+                pci.StaticImageUnderlay(ImageResource.FromImage(Image.FromStream(ms)));
+            }
+            return pci;
+        }
+
+        /// <remarks>
+        /// <strong>Supported Controls</strong>:
+        /// <see cref="DoubleVectorProperty"/>,
+        /// </remarks>
+        public static PropertyControlInfo StaticImageUnderlay(this PropertyControlInfo pci, string base64string)
+            => pci.StaticImageUnderlay(Convert.FromBase64String(base64string));
+
+        /// <remarks>
+        /// <strong>Supported Controls</strong>:
         /// <see cref="PropertyControlType.Slider" /> using <see cref="Int32Property"/> or <see cref="DoubleProperty"/>,
         /// <see cref="PropertyControlType.AngleChooser" />
         /// </remarks>
@@ -245,7 +267,7 @@ namespace PaintDotNet.IndirectUI
         /// <strong>Supported Controls</strong>:
         /// <see cref="PropertyControlType.Slider" /> using <see cref="DoubleProperty"/> or <see cref="DoubleVectorProperty"/>
         /// </remarks>
-        public static PropertyControlInfo UseExponentialScale(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo UseExponentialScale(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.UseExponentialScale, value);
 
         public static PropertyControlInfo WindowHelpContent(this PropertyControlInfo pci, string value)
@@ -254,7 +276,7 @@ namespace PaintDotNet.IndirectUI
         public static PropertyControlInfo WindowHelpContentType(this PropertyControlInfo pci, WindowHelpContentType value)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.WindowHelpContentType, value);
 
-        public static PropertyControlInfo WindowIsSizable(this PropertyControlInfo pci, bool value)
+        public static PropertyControlInfo WindowIsSizable(this PropertyControlInfo pci, bool value = true)
             => pci.SetPropertyControlValue(ControlInfoPropertyNames.WindowIsSizable, value);
 
         public static PropertyControlInfo WindowTitle(this PropertyControlInfo pci, string value)

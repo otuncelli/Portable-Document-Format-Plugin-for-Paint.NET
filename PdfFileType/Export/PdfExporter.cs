@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading;
 using PaintDotNet;
 using PaintDotNet.PropertySystem;
+using PaintDotNet.PropertySystem.Extensions;
 using PaintDotNet.Rendering;
 
 namespace PdfFileTypePlugin.Export
