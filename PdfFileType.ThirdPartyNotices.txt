@@ -4,7 +4,7 @@ Please see below for details.
 
 1.	PDFium (https://pdfium.googlesource.com/)
 2.	PDFiumSharp (https://github.com/otuncelli/PDFiumSharp)
-3. 	UglyToad/PdfPig (https://github.com/otuncelli/PdfPig)
+3. 	UglyToad/PdfPig (https://github.com/UglyToad/PdfPig)
 
 
 %% PDFium NOTICES AND INFORMATION BEGIN HERE

@@ -44,7 +44,7 @@ namespace PdfFileTypePlugin.Export
             Ensure.IsNotNull(token, nameof(token));
             Ensure.IsNotNull(scratchSurface, nameof(scratchSurface));
             Ensure.IsNotNull(progressCallback, nameof(progressCallback));
-            Ensure.Test(() => input.Width * 4 * input.Height, "Canvas is too big.");
+            Ensure.Test(() => checked(input.Width * 4 * input.Height), "Canvas is too big.");
             Ensure.IsTrue(input.Layers.Count > 0, () => throw new ArgumentException("Document does not contain layers."));
 
             scratchSurface.Clear();

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <DefineConstants>FILETYPE;DONTCHECKUPDATES</DefineConstants>
     <NoWarn>FodyPackageReference;MSB3277</NoWarn>
     <OutputType>Library</OutputType>
@@ -73,21 +74,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="runtimes\pdfium_ARM64.dll">
-      <Link>pdfium_ARM64.dll</Link>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Include="runtimes\pdfium_x64.dll">
-      <Link>pdfium_x64.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="runtimes\pdfium_x86.dll">
-      <Link>pdfium_x86.dll</Link>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PDFiumSharp\PDFiumSharp\PDFiumSharp.csproj" />
   </ItemGroup>
 
@@ -130,7 +116,7 @@
     <Exec Command="if not exist &quot;$(PluginDir)&quot; mkdir &quot;$(PluginDir)&quot;" />
     <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginDir)&quot; /y" />
     <Exec Command="copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(PluginDir)&quot; /y" Condition="'$(ConfigurationName)' == 'Debug'" />
-    <Exec Command="copy &quot;$(ProjectDir)\runtimes\pdfium_x64.dll&quot; &quot;$(PluginDir)&quot; /y" />
+    <Exec Command="copy &quot;$(TargetDir)\runtimes\win-x64\native\pdfium.dll&quot; &quot;$(PluginDir)\pdfium_x64.dll&quot; /y" />
   </Target>
 
   <Target Name="OuterPreBuild" BeforeTargets="DispatchToInnerBuilds">
