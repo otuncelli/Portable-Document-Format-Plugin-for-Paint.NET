@@ -3,14 +3,13 @@
 
 using System;
 
-namespace PaintDotNet.PropertySystem.Extensions
-{
-    public static class PropertyCollectionExtensions
-    {
-        public static T GetPropertyValue<T>(this PropertyCollection collection, PropertyName propertyName)
-            => (T)Convert.ChangeType(collection.GetPropertyValue(propertyName), typeof(T));
+namespace PaintDotNet.PropertySystem.Extensions;
 
-        public static object GetPropertyValue(this PropertyCollection collection, PropertyName propertyName)
-            => collection[propertyName].Value;
-    }
+public static class PropertyCollectionExtensions
+{
+    public static T GetPropertyValue<T>(this PropertyCollection collection, PropertyName propertyName)
+        => (T)Convert.ChangeType(collection.GetPropertyValue(propertyName), typeof(T));
+
+    public static object GetPropertyValue(this PropertyCollection collection, PropertyName propertyName)
+        => collection[propertyName].Value;
 }

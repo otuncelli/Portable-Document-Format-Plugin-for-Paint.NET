@@ -3,11 +3,10 @@
 
 using System.Drawing;
 
-namespace PdfFileTypePlugin
+namespace PdfFileTypePlugin.Extensions;
+
+internal static class ImageExtensions
 {
-    internal static class ImageExtensions
-    {
-        public static RectangleF GetBounds(this Image image, GraphicsUnit unit = GraphicsUnit.Pixel)
-            => image.GetBounds(ref unit);
-    }
+    public static RectangleF GetBounds(this Image image, GraphicsUnit unit = GraphicsUnit.Pixel)
+        => image.GetBounds(ref unit);
 }

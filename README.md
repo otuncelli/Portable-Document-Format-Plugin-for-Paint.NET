@@ -6,12 +6,12 @@
 This is a Paint.NET file type plugin for opening and saving Portable Document Format `(PDF)` files.<br/>
 It also has ability to open Adobe® Illustrator® Artwork `(AI)` files saved with PDF compatibility option.
 
-Compatible with Paint.NET 4.2.16 and later.
+Compatible with Paint.NET 5.1 and later.
 
 ### Download links
 
 The easiest and recommended way to install the plugin is using the installer. It supports Store and Classic versions of Paint.NET.<br/>
-If you're using the Portable version of Paint.NET please use the manual installation method.
+If you're using the portable version of Paint.NET please use the manual installation method.
 
 | Installer (Classic/Store) | Manual Installation (Portable) |
 |:-------------------------:|:------------------------------:|
@@ -28,18 +28,10 @@ To auto install the plugin perform the following steps:
 To manually install the plugin perform the following steps:
   * Download and extract `PdfFileTypePlugin.zip`
 
-
-  * If you're using Paint.NET 4.3 or later:
-	* If you're using Classic (All users) or Portable version of Paint.NET:
-	  * Put the `PdfFileTypePlugin` folder with its contents in the `<Paint.NET>\FileTypes` directory (default location is `C:\Program Files\paint.net\FileTypes`).
-	* If you're using Classic (Just for yourself) or Store version:
-	  * Put the `PdfFileTypePlugin` folder with its contents in the `<Documents>\paint.net App Files\FileTypes` directory.
-
-  * If you're using Paint.NET 4.2.16:
-	* If you're using Classic (All users):
-	  * Put the contents of `PdfFileTypePlugin` folder in the `<Paint.NET>\FileTypes` directory (default location is `C:\Program Files\paint.net\FileTypes`).
-	* If you're using Classic (Just for yourself):
-	  * Put the contents of `PdfFileTypePlugin` folder in the `<Documents>\paint.net App Files\FileTypes` directory.
+  * If you're using Classic (All users) or Portable version of Paint.NET:
+	* Put the `PdfFileTypePlugin` folder with its contents in the `<Paint.NET>\FileTypes` directory (default location is `C:\Program Files\paint.net\FileTypes`).
+  * If you're using Classic (Just for yourself) or Store version:
+    * Put the `PdfFileTypePlugin` folder with its contents in the `<Documents>\paint.net App Files\FileTypes` directory.
 
   * Optional steps:
 	* If you want to disable Save PDF functionality, create an empty text file named `PdfFileType.DisableSave.txt` in the same directory.

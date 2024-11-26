@@ -3,10 +3,9 @@
 
 using PaintDotNet;
 
-namespace PdfFileTypePlugin
+namespace PdfFileTypePlugin;
+
+public sealed class MyPluginSupportInfoProvider : IPluginSupportInfoProvider
 {
-    public sealed class MyPluginSupportInfoProvider : IPluginSupportInfoProvider
-    {
-        public IPluginSupportInfo GetPluginSupportInfo() => new MyPluginSupportInfo();
-    }
+    public IPluginSupportInfo GetPluginSupportInfo() => new MyPluginSupportInfo();
 }

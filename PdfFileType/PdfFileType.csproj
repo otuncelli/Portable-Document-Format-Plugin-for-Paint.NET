@@ -3,58 +3,34 @@
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <DefineConstants>FILETYPE;DONTCHECKUPDATES</DefineConstants>
+    <DefineConstants>FILETYPE</DefineConstants>
     <NoWarn>FodyPackageReference;MSB3277</NoWarn>
     <OutputType>Library</OutputType>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <RootNamespace>PdfFileTypePlugin</RootNamespace>
-    <TargetFrameworks>net5.0-windows;net47</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyInfo" Condition="'$(GenerateAssemblyInfo)'=='true' Or '$(GenerateAssemblyInfo)'==''">
     <AssemblyName>PdfFileType</AssemblyName>
     <AssemblyTitle>PDF/AI File Type Plugin for Paint.NET</AssemblyTitle>
-    <Copyright>Copyright © 2022 Osman Tunçelli</Copyright>
+    <Copyright>Copyright © 2024 Osman Tunçelli</Copyright>
     <Company>$(Copyright)</Company>
     <!--<Deterministic>false</Deterministic>-->
     <Product>$(AssemblyTitle)</Product>
-    <Version>1.0.0.1</Version>
+    <Version>1.1.0.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(DefineConstants.Contains('EFFECT'))=='true'">
-    <PluginType>Effect</PluginType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(DefineConstants.Contains('FILETYPE'))=='true'">
-    <PluginType>FileType</PluginType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0-windows'">
-    <PdnRoot>D:\Backup\Programlar\paint.net_4300</PdnRoot>
-    <PdnRun>C:\Program Files\paint.net</PdnRun>
-    <PluginDir>$(USERPROFILE)\Documents\paint.net App Files\$(PluginType)s\$(RootNamespace)\</PluginDir>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0-windows'">
-    <PluginDir>$(USERPROFILE)\Documents\paint.net App Files\$(PluginType)s\$(RootNamespace)\</PluginDir>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)|$(PdnVer)'=='net6.0-windows|'">
+  <PropertyGroup Label="Custom Variables">
     <PdnRoot>C:\Program Files\paint.net</PdnRoot>
+    <PdnRun>C:\Program Files\paint.net</PdnRun>
+    <PluginDir>$(USERPROFILE)\Documents\paint.net App Files\FileTypes\$(RootNamespace)\</PluginDir>    
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net47'">
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <PdnRoot>D:\Backup\Programlar\paint.net_4216</PdnRoot>
-    <PluginDir>$(PdnRoot)\$(PluginType)s\</PluginDir>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net47'">
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PDFiumSharp\PDFiumSharp\PDFiumSharp.csproj" />
     <Reference Include="PaintDotNet.Base">
       <Private>false</Private>
       <HintPath>$(PdnRoot)\PaintDotNet.Base.dll</HintPath>
@@ -67,23 +43,35 @@
       <Private>false</Private>
       <HintPath>$(PdnRoot)\PaintDotNet.Data.dll</HintPath>
     </Reference>
-    <Reference Include="PaintDotNet.Effects" Condition="$(DefineConstants.Contains('EFFECT'))=='true'">
+    <Reference Include="PaintDotNet.PropertySystem">
       <Private>false</Private>
-      <HintPath>$(PdnRoot)\PaintDotNet.Effects.dll</HintPath>
+      <HintPath>$(PdnRoot)\PaintDotNet.PropertySystem.dll</HintPath>
+    </Reference>
+    <Reference Include="PaintDotNet.Fundamentals">
+      <Private>false</Private>
+      <HintPath>$(PdnRoot)\PaintDotNet.Fundamentals.dll</HintPath>
+    </Reference>
+    <Reference Include="PaintDotNet.Primitives">
+      <Private>false</Private>
+      <HintPath>$(PdnRoot)\PaintDotNet.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="PaintDotNet.ComponentModel">
+      <Private>false</Private>
+      <HintPath>$(PdnRoot)\PaintDotNet.ComponentModel.dll</HintPath>
+    </Reference>
+    <Reference Include="PaintDotNet.ObjectModel">
+      <Private>false</Private>
+      <HintPath>$(PdnRoot)\PaintDotNet.ObjectModel.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PDFiumSharp\PDFiumSharp\PDFiumSharp.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Fody" Version="6.6.2">
+    <PackageReference Include="Fody" Version="6.9.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ILMerge.Fody" Version="1.23.0" PrivateAssets="All" />
-    <PackageReference Include="PdfPig" Version="0.1.6" />
+    <PackageReference Include="ILMerge.Fody" Version="1.24.0" PrivateAssets="All" />
+    <PackageReference Include="PdfPig" Version="0.1.9" />
     <Compile Update="Localization\StringResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -98,21 +86,7 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <!--
-  <Target AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)'=='net47'">
-    <Exec Command="if not exist &quot;$(PluginDir)&quot; mkdir &quot;$(PluginDir)&quot;" />
-    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginDir)&quot; /y" />
-    <Exec Command="copy &quot;$(PluginDir)$(TargetName).pdb&quot; &quot;$(PluginDir)&quot; /y" Condition="'$(ConfigurationName)' == 'Debug'" />
-  </Target>
-  
-  <Target Name="Copy to plugin directory" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)'=='net6.0-windows'">
-    <Exec Command="if not exist &quot;$(PluginDir)&quot; mkdir &quot;$(PluginDir)&quot;" />
-    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginDir)&quot; /y" />
-    <Exec Command="copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(PluginDir)&quot; /y" Condition="'$(ConfigurationName)' == 'Debug'" />
-  </Target>  
-  -->
-
-  <Target Name="Copy to plugin directory" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)'=='net5.0-windows'">
+  <Target Name="Copy to plugin directory" AfterTargets="PostBuildEvent">
     <Exec Command="if not exist &quot;$(PluginDir)&quot; mkdir &quot;$(PluginDir)&quot;" />
     <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginDir)&quot; /y" />
     <Exec Command="copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(PluginDir)&quot; /y" Condition="'$(ConfigurationName)' == 'Debug'" />

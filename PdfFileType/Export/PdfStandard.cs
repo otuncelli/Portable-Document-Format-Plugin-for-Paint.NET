@@ -3,12 +3,11 @@
 
 using UglyToad.PdfPig.Writer;
 
-namespace PdfFileTypePlugin.Export
+namespace PdfFileTypePlugin.Export;
+
+internal enum PdfStandard
 {
-    internal enum PdfStandard
-    {
-        None = PdfAStandard.None,
-        A1B = PdfAStandard.A1B,
-        A2B = PdfAStandard.A2B
-    }
+    None = PdfAStandard.None,
+    A1B = PdfAStandard.A1B,
+    A2B = PdfAStandard.A2B
 }

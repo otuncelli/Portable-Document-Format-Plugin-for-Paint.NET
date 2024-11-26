@@ -4,15 +4,14 @@
 using System.Text;
 using PDFiumSharp;
 
-namespace PdfFileTypePlugin
+namespace PdfFileTypePlugin.Extensions;
+
+internal static class PdfPageExtensions
 {
-    internal static class PdfPageExtensions
+    public static string? GetLabel(this PdfPage page, int buflen = 255)
     {
-        public static string GetLabel(this PdfPage page, int buflen = 255)
-        {
-            byte[] buf = new byte[buflen];
-            uint len = PDFium.FPDF_GetPageLabel(page.Document.Handle, page.Index, ref buf[0], (uint)buf.Length);
-            return len > 0 ? Encoding.Unicode.GetString(buf, 0, (int)len).TrimEnd('\0') : null;
-        }
+        byte[] buf = new byte[buflen];
+        uint len = PDFium.FPDF_GetPageLabel(page.Document.Handle, page.Index, ref buf[0], (uint)buf.Length);
+        return len > 0 ? Encoding.Unicode.GetString(buf, 0, (int)len).TrimEnd('\0') : null;
     }
 }

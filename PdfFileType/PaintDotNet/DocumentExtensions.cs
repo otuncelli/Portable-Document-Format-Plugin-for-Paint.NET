@@ -4,11 +4,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PaintDotNet
+namespace PaintDotNet;
+
+internal static class DocumentExtensions
 {
-    internal static class DocumentExtensions
-    {
-        public static IList<BitmapLayer> GetBitmapLayers(this Document document)
-            => document.Layers.OfType<BitmapLayer>().ToList();
-    }
+    public static IList<BitmapLayer> GetBitmapLayers(this Document document)
+        => document.Layers.OfType<BitmapLayer>().ToList();
 }

@@ -5,26 +5,25 @@ using System;
 using System.IO;
 using PaintDotNet;
 
-namespace PdfFileTypePlugin
+namespace PdfFileTypePlugin;
+
+[PluginSupportInfo(typeof(MyPluginSupportInfo))]
+public sealed class AiFileType : PdfFileType
 {
-    [PluginSupportInfo(typeof(MyPluginSupportInfo))]
-    public sealed class AiFileType : PdfFileType
+    private static readonly FileTypeOptions BaseOptions = new FileTypeOptions
     {
-        private static readonly FileTypeOptions BaseOptions = new FileTypeOptions
-        {
-            LoadExtensions = new[] { ".ai" },
-            SupportsCancellation = true,
-            SupportsLayers = true,
-            SaveExtensions = Array.Empty<string>()
-        };
+        LoadExtensions = [".ai"],
+        SupportsCancellation = true,
+        SupportsLayers = true,
+        SaveExtensions = []
+    };
 
-        public AiFileType() : base(GetName("AI - Adobe® Illustrator® Artwork"), BaseOptions)
-        {
-        }
+    public AiFileType() : base(GetName("AI"), BaseOptions)
+    {
+    }
 
-        protected sealed override void OnSaveT(Document input, Stream output, PropertyBasedSaveConfigToken token, Surface scratchSurface, ProgressEventHandler progressCallback)
-        {
-            throw new NotSupportedException();
-        }
+    protected sealed override void OnSaveT(Document input, Stream output, PropertyBasedSaveConfigToken token, Surface scratchSurface, ProgressEventHandler progressCallback)
+    {
+        throw new NotSupportedException();
     }
 }
